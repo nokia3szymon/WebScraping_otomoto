@@ -42,4 +42,25 @@ def gathering_adreses(x):
 #         params.append(adres)  
 #     return params
 
+res = gathering_adreses(advertisement)
+
+ad = requests.get(str(res[0])) # opening ad
+adsoup = bs4.BeautifulSoup(ad.text, 'html.parser')
+
+parameters_of_car = adsoup.find_all( class_ = "offer-params__value")
+params = []
+for j in parameters_of_car:
+    trysoup = bs4.BeautifulSoup(j.text,'html.parser')
+    params.append(str(trysoup).strip())
+    
+label_of_parameters = adsoup.find_all( class_ ="offer-params__label" )
+labels = []
+for k in label_of_parameters:
+    trysoup = bs4.BeautifulSoup(k.text,'html.parser')
+    labels.append(str(trysoup).strip())
+    
+print(int(len(params)))
+for l in range(int(len(params))):
+  print(labels[l] + " " + params[l])
+
 
